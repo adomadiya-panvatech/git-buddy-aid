@@ -1,5 +1,6 @@
+
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight, Clock } from "lucide-react";
+import { Calendar, Clock, ArrowRight, User } from "lucide-react";
 
 const Blog = () => {
   const featuredArticles = [
@@ -9,7 +10,8 @@ const Blog = () => {
       category: "Personal Injury",
       readTime: "5 min read",
       date: "January 15, 2025",
-      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&h=250&fit=crop"
+      author: "Sarah Johnson",
+      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop"
     },
     {
       title: "The Divorce Process: What to Expect in California",
@@ -17,7 +19,8 @@ const Blog = () => {
       category: "Family Law",
       readTime: "7 min read",
       date: "January 10, 2025",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop"
+      author: "Michael Chen",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop"
     },
     {
       title: "Immigration Law Updates: What You Need to Know",
@@ -25,87 +28,108 @@ const Blog = () => {
       category: "Immigration",
       readTime: "6 min read",
       date: "January 5, 2025",
-      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=250&fit=crop"
+      author: "Elena Rodriguez",
+      image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop"
     }
   ];
 
   return (
-    <section id="blog" className="py-24 bg-gradient-to-b from-background to-muted/30">
-      <div className="container px-4">
+    <section id="blog" className="py-20 lg:py-28 bg-gradient-to-b from-background via-muted/30 to-background">
+      <div className="container px-4 mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-20 relative" data-aos="fade-up" data-aos-delay="200">
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-24 h-1 bg-accent rounded-full"></div>
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-2xl mb-6">
-            <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-              <span className="text-accent-foreground text-sm font-bold">📚</span>
+        <div className="text-center mb-16 lg:mb-20" data-aos="fade-up">
+          <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full mb-6">
+            <div className="w-6 h-6 bg-primary rounded-md flex items-center justify-center">
+              <span className="text-primary-foreground text-xs font-bold">📚</span>
             </div>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-6 leading-tight">
             Legal Insights &<br />
-            <span className="text-accent">Resources</span>
+            <span className="text-primary/80">Expert Resources</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Stay ahead with expert analysis, practical guidance, and the latest developments 
-            in law that directly impact you and your business.
+          <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Stay informed with expert legal analysis, practical guidance, and the latest developments that impact your legal matters.
           </p>
         </div>
 
         {/* Featured Articles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 max-w-7xl mx-auto mb-12">
           {featuredArticles.map((article, index) => (
             <article
               key={index}
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border group"
+              className="group bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-border hover:border-primary/20"
               data-aos="fade-up"
-              data-aos-delay={300 + (index * 150)}
+              data-aos-delay={200 + (index * 100)}
             >
               {/* Article Image */}
-              <div className="relative h-48 overflow-hidden" data-aos="zoom-in" data-aos-delay={400 + (index * 150)}>
+              <div className="relative h-56 lg:h-64 overflow-hidden">
                 <img
                   src={article.image}
                   alt={article.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute top-4 left-4">
-                  <span className="bg-accent text-accent-foreground text-xs font-semibold px-3 py-1 rounded-full">
+                  <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg">
                     {article.category}
                   </span>
                 </div>
               </div>
 
               {/* Article Content */}
-              <div className="p-6">
-                <div className="flex items-center text-sm text-muted-foreground mb-3" data-aos="fade-right" data-aos-delay={500 + (index * 150)}>
-                  <span>{article.date}</span>
-                  <span className="mx-2">•</span>
-                  <span>{article.readTime}</span>
+              <div className="p-6 lg:p-8">
+                <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-1">
+                      <Calendar className="w-4 h-4" />
+                      <span>{article.date}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Clock className="w-4 h-4" />
+                      <span>{article.readTime}</span>
+                    </div>
+                  </div>
                 </div>
                 
-                <h3 className="text-xl font-semibold text-primary mb-3 group-hover:text-accent transition-colors" data-aos="fade-right" data-aos-delay={600 + (index * 150)}>
+                <h3 className="text-xl lg:text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300 line-clamp-2">
                   {article.title}
                 </h3>
                 
-                <p className="text-muted-foreground mb-4 leading-relaxed" data-aos="fade-right" data-aos-delay={700 + (index * 150)}>
+                <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-3">
                   {article.excerpt}
                 </p>
-                
-                <button 
-                  className="text-accent font-semibold hover:text-accent-light transition-colors flex items-center group"
-                  data-aos="fade-right"
-                  data-aos-delay={800 + (index * 150)}
-                >
-                  Read More
-                  <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <User className="w-4 h-4" />
+                    <span>{article.author}</span>
+                  </div>
+                  
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="text-primary hover:text-primary hover:bg-primary/10 font-semibold group/btn"
+                  >
+                    Read More
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform duration-200" />
+                  </Button>
+                </div>
               </div>
             </article>
           ))}
         </div>
 
-        
+        {/* View All Button */}
+        <div className="text-center" data-aos="fade-up" data-aos-delay="600">
+          <Button 
+            size="lg" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+          >
+            View All Articles
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </div>
       </div>
     </section>
   );
