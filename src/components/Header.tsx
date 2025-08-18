@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, Mail, MapPin } from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
@@ -9,15 +9,28 @@ import { motion, AnimatePresence } from "framer-motion";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const { handleNavClick } = useSmoothScroll();
 
   const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#about", label: "About" },
-    { href: "#practice-areas", label: "Practice Areas" },
-    { href: "#testimonials", label: "Testimonials" },
-    { href: "#blog", label: "Blog" },
-    { href: "#contact", label: "Contact" },
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { 
+      href: "/services", 
+      label: "Services",
+      hasDropdown: true,
+      dropdownItems: [
+        { href: "/services", label: "All Services" },
+        { href: "/practice-areas", label: "Practice Areas" },
+        { href: "/case-results", label: "Case Results" }
+      ]
+    },
+    { href: "/attorneys", label: "Attorneys" },
+    { href: "/blog", label: "Blog" },
+    { href: "/testimonials", label: "Testimonials" },
+    { href: "/resources", label: "Resources" },
+    { href: "/faq", label: "FAQ" },
+    { href: "/contact", label: "Contact" },
   ];
 
   useEffect(() => {
@@ -25,6 +38,20 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleLinkClick = (href: string, isAnchor = false) => {
+    if (isAnchor) {
+      const elementId = href.replace("#", "");
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.location.href = href;
+    }
+    setIsMenuOpen(false);
+    setIsServicesOpen(false);
+  };
 
   return (
     <>
@@ -65,15 +92,53 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="relative text-base font-medium text-foreground hover:text-primary transition-colors duration-300 group py-2"
-                onClick={(e) => handleNavClick(e, link.href.replace("#", ""))}
-              >
-                {link.label}
-                <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full" />
-              </a>
+              <div key={link.href} className="relative group">
+                {link.hasDropdown ? (
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setIsServicesOpen(true)}
+                    onMouseLeave={() => setIsServicesOpen(false)}
+                  >
+                    <button
+                      className="flex items-center space-x-1 text-base font-medium text-foreground hover:text-primary transition-colors duration-300 py-2"
+                      onClick={() => handleLinkClick(link.href)}
+                    >
+                      <span>{link.label}</span>
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                    
+                    <AnimatePresence>
+                      {isServicesOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-border/20 py-2 z-50"
+                        >
+                          {link.dropdownItems?.map((item) => (
+                            <button
+                              key={item.href}
+                              className="block w-full text-left px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors"
+                              onClick={() => handleLinkClick(item.href)}
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <button
+                    className="relative text-base font-medium text-foreground hover:text-primary transition-colors duration-300 group py-2"
+                    onClick={() => handleLinkClick(link.href, link.href.startsWith("#"))}
+                  >
+                    {link.label}
+                    <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full" />
+                  </button>
+                )}
+              </div>
             ))}
           </nav>
 
@@ -112,17 +177,27 @@ const Header = () => {
             >
               <nav className="container px-4 py-6 space-y-4">
                 {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="block text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
-                    onClick={(e) => {
-                      handleNavClick(e, link.href.replace("#", ""));
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    {link.label}
-                  </a>
+                  <div key={link.href}>
+                    <button
+                      className="block w-full text-left text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
+                      onClick={() => handleLinkClick(link.href, link.href.startsWith("#"))}
+                    >
+                      {link.label}
+                    </button>
+                    {link.hasDropdown && (
+                      <div className="pl-4 space-y-2 mt-2">
+                        {link.dropdownItems?.map((item) => (
+                          <button
+                            key={item.href}
+                            className="block w-full text-left text-base text-muted-foreground hover:text-primary transition-colors py-1"
+                            onClick={() => handleLinkClick(item.href)}
+                          >
+                            {item.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
 
                 <div className="pt-4 border-t border-border">

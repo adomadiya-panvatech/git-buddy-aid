@@ -1,0 +1,43 @@
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
+import SkipNavigation from "@/components/SkipNavigation";
+import Testimonials from "@/components/Testimonials";
+
+const TestimonialsPage = () => {
+  return (
+    <>
+      <SEO 
+        title="Client Testimonials - What Our Clients Say | RingRemind"
+        description="Read testimonials from our satisfied clients. See why RingRemind Legal is trusted for family law, personal injury, and criminal defense cases in Poway, CA."
+        url="https://ringremind.com/testimonials"
+      />
+      <SkipNavigation />
+      <div className="min-h-screen">
+        <Header />
+        <main id="main-content" role="main">
+          {/* Hero Section */}
+          <section className="py-20 bg-gradient-to-br from-primary via-primary-dark to-primary-darker text-white">
+            <div className="container px-4">
+              <div className="max-w-4xl mx-auto text-center">
+                <h1 className="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-up">
+                  Client Testimonials
+                </h1>
+                <p className="text-xl md:text-2xl text-white/90 mb-8" data-aos="fade-up" data-aos-delay="200">
+                  What our clients say about working with us
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Testimonials Component */}
+          <Testimonials />
+        </main>
+        <Footer />
+      </div>
+    </>
+  );
+};
+
+export default TestimonialsPage;
