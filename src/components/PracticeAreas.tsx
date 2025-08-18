@@ -1,157 +1,160 @@
 
-import { Users, Heart, Shield, Plane, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Heart, Car, Shield, Users, Scale, Building, FileText, Home } from "lucide-react";
+import { motion } from "framer-motion";
 
 const PracticeAreas = () => {
   const practiceAreas = [
     {
-      icon: Heart,
-      title: "Family Law",
-      description: "Navigate life's most personal legal matters with compassionate expertise and dedicated support.",
-      features: ["Divorce & Separation", "Child Custody & Support", "Adoption Services", "Prenuptial Agreements"],
-      color: "from-pink-500 to-rose-500",
-      bgColor: "bg-pink-50",
-      iconColor: "text-pink-600"
+      icon: Car,
+      title: "Personal Injury",
+      description: "Maximum compensation for accident victims and their families. We fight insurance companies to get you what you deserve.",
+      features: ["Auto Accidents", "Slip & Fall", "Medical Malpractice", "Wrongful Death"],
+      color: "from-red-500 to-red-600"
     },
     {
-      icon: Users,
-      title: "Personal Injury",
-      description: "Fight for the compensation you deserve with aggressive representation and proven results.",
-      features: ["Car Accidents", "Medical Malpractice", "Workplace Injuries", "Insurance Claims"],
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-50",
-      iconColor: "text-blue-600"
+      icon: Heart,
+      title: "Family Law",
+      description: "Compassionate legal guidance through life's most challenging family matters with experienced representation.",
+      features: ["Divorce", "Child Custody", "Support Issues", "Domestic Violence"],
+      color: "from-blue-500 to-blue-600"
     },
     {
       icon: Shield,
       title: "Criminal Defense",
-      description: "Protect your rights and freedom with strategic defense and unwavering advocacy.",
-      features: ["DUI Defense", "Drug Charges", "Assault Cases", "White Collar Crime"],
-      color: "from-emerald-500 to-teal-500",
-      bgColor: "bg-emerald-50",
-      iconColor: "text-emerald-600"
+      description: "Aggressive defense protecting your rights and freedom. Available 24/7 for urgent criminal matters.",
+      features: ["DUI Defense", "Drug Crimes", "Assault", "White Collar Crimes"],
+      color: "from-green-500 to-green-600"
     },
     {
-      icon: Plane,
+      icon: Users,
       title: "Immigration Law",
-      description: "Navigate complex immigration processes with experienced guidance and personalized attention.",
-      features: ["Visa Applications", "Green Card Process", "Citizenship", "Deportation Defense"],
-      color: "from-purple-500 to-indigo-500",
-      bgColor: "bg-purple-50",
-      iconColor: "text-purple-600"
+      description: "Navigate complex immigration processes with experienced guidance toward achieving your American dream.",
+      features: ["Green Cards", "Citizenship", "Visa Applications", "Deportation Defense"],
+      color: "from-purple-500 to-purple-600"
+    },
+    {
+      icon: Building,
+      title: "Business Law",
+      description: "Comprehensive legal solutions for businesses of all sizes, from startups to established corporations.",
+      features: ["Business Formation", "Contracts", "Employment Law", "Litigation"],
+      color: "from-orange-500 to-orange-600"
+    },
+    {
+      icon: Home,
+      title: "Real Estate Law",
+      description: "Expert guidance through property transactions, disputes, and real estate legal matters.",
+      features: ["Property Transactions", "Landlord/Tenant", "Property Disputes", "Foreclosure"],
+      color: "from-teal-500 to-teal-600"
     }
   ];
 
   return (
-    <section 
-      id="practice-areas" 
-      className="py-24 bg-gradient-to-br from-secondary via-white to-secondary/50"
-      aria-labelledby="practice-areas-heading"
-    >
+    <section id="practice-areas" className="py-20 bg-background">
       <div className="container px-4">
         {/* Header */}
-        <div className="text-center mb-20" data-aos="fade-up" data-aos-delay="100">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-accent/10 rounded-2xl mb-8">
-            <Shield className="w-10 h-10 text-accent" />
-          </div>
-          <h2 
-            id="practice-areas-heading"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-6 leading-tight"
-          >
-            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">Practice Areas</span>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+            Our Practice Areas
           </h2>
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Comprehensive legal services tailored to your unique needs, delivered with expertise, 
-            compassion, and an unwavering commitment to justice.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            We provide comprehensive legal services across multiple practice areas, 
+            ensuring expert representation for all your legal needs.
           </p>
-        </div>
+        </motion.div>
 
         {/* Practice Areas Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto mb-16" role="list" aria-label="Legal practice areas">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {practiceAreas.map((area, index) => {
             const IconComponent = area.icon;
             return (
-              <article
+              <motion.div
                 key={index}
-                className="group relative bg-white rounded-3xl p-8 lg:p-10 hover:shadow-2xl transition-all duration-500 border border-border/50 hover:border-accent/30 hover:-translate-y-2"
-                role="listitem"
-                data-aos="fade-up"
-                data-aos-delay={200 + (index * 100)}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group"
               >
-                {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${area.color} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`}></div>
-                
-                <div className="relative">
-                  {/* Icon */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className={`w-16 h-16 ${area.bgColor} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`} data-aos="zoom-in" data-aos-delay={300 + (index * 100)}>
-                      <IconComponent className={`w-8 h-8 ${area.iconColor}`} aria-hidden="true" />
-                    </div>
-                    <ArrowRight className="w-6 h-6 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all duration-300" />
+                <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full">
+                  {/* Icon Header */}
+                  <div className={`bg-gradient-to-r ${area.color} p-6 rounded-t-lg`}>
+                    <IconComponent className="w-12 h-12 text-white mx-auto" />
                   </div>
                   
                   {/* Content */}
-                  <div>
-                    <h3 className="text-2xl lg:text-3xl font-bold text-primary mb-4 group-hover:text-accent transition-colors duration-300" data-aos="fade-right" data-aos-delay={400 + (index * 100)}>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold text-primary mb-4 text-center">
                       {area.title}
                     </h3>
-                    <p className="text-lg text-muted-foreground mb-6 leading-relaxed" data-aos="fade-right" data-aos-delay={500 + (index * 100)}>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
                       {area.description}
                     </p>
                     
                     {/* Features */}
-                    <ul className="space-y-3 mb-8" role="list" aria-label={`${area.title} services`}>
+                    <ul className="space-y-2 mb-6">
                       {area.features.map((feature, featureIndex) => (
-                        <li 
-                          key={featureIndex}
-                          className="flex items-center text-base text-foreground"
-                          role="listitem"
-                          data-aos="fade-right"
-                          data-aos-delay={600 + (index * 100) + (featureIndex * 50)}
-                        >
-                          <div className="w-2 h-2 bg-accent rounded-full mr-4 group-hover:scale-125 transition-transform duration-300" aria-hidden="true"></div>
-                          <span className="group-hover:text-accent transition-colors duration-300">{feature}</span>
+                        <li key={featureIndex} className="flex items-center space-x-3">
+                          <div className="w-2 h-2 bg-accent rounded-full flex-shrink-0"></div>
+                          <span className="text-sm text-muted-foreground">{feature}</span>
                         </li>
                       ))}
                     </ul>
-
+                    
                     {/* CTA */}
                     <Button 
                       variant="outline" 
-                      className="group-hover:bg-accent group-hover:text-white group-hover:border-accent transition-all duration-300"
+                      className="w-full group-hover:bg-accent group-hover:text-white transition-colors"
+                      onClick={() => window.location.href = '/contact'}
                     >
                       Learn More
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                     </Button>
                   </div>
                 </div>
-              </article>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center" data-aos="fade-up" data-aos-delay="800">
-          <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-xl border border-border/50 max-w-4xl mx-auto">
-            <h3 className="text-3xl lg:text-4xl font-bold text-primary mb-6">
-              Need Legal Assistance?
-            </h3>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Don't see your specific legal need? We handle a wide range of legal matters. 
-              Contact us for a free consultation to discuss your case.
-            </p>
-            <a
-              href="https://stageadmin.ringremind.com/Onboarding"
-              target="_blank"
-              rel="noopener noreferrer"
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center bg-primary text-white rounded-lg p-12"
+        >
+          <h3 className="text-3xl font-bold mb-6">
+            Don't See Your Legal Issue Listed?
+          </h3>
+          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            We handle a wide variety of legal matters. Contact us to discuss your specific situation 
+            and learn how we can help protect your rights.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button 
+              size="lg"
+              className="bg-accent hover:bg-accent-light text-white font-bold px-8 py-4"
+              onClick={() => window.location.href = '/contact'}
             >
-              <Button size="lg" className="bg-accent hover:bg-accent-light text-accent-foreground font-semibold text-lg px-10 py-6 h-auto rounded-full shadow-lg hover:shadow-accent/25 transform hover:scale-105 transition-all duration-300">
-                Schedule Free Consultation
-                <ArrowRight className="w-6 h-6 ml-3" />
-              </Button>
-            </a>
+              Free Consultation
+            </Button>
+            <Button 
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white hover:text-primary font-bold px-8 py-4"
+              onClick={() => window.location.href = 'tel:8009162459'}
+            >
+              Call (800) 916-2459
+            </Button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
