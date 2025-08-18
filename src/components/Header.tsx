@@ -1,50 +1,20 @@
+
 import { useState, useEffect } from "react";
-import { Menu, X, Rocket, Heart, Users, Shield, Plane } from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "./Logo";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 import { motion, AnimatePresence } from "framer-motion";
 
-const practiceAreas = [
-  {
-    icon: Heart,
-    title: "Family Law",
-    description:
-      "Divorce, child custody, adoption, and domestic relations handled with care.",
-    color: "bg-pink-100 text-pink-600",
-  },
-  {
-    icon: Users,
-    title: "Personal Injury",
-    description:
-      "Fighting for compensation after accidents and malpractice cases.",
-    color: "bg-yellow-100 text-yellow-600",
-  },
-  {
-    icon: Shield,
-    title: "Criminal Defense",
-    description:
-      "Protecting your rights and freedom with aggressive defense strategies.",
-    color: "bg-blue-100 text-blue-600",
-  },
-  {
-    icon: Plane,
-    title: "Immigration",
-    description: "Helping families and individuals navigate immigration law.",
-    color: "bg-green-100 text-green-600",
-  },
-];
-
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isPracticeOpen, setIsPracticeOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { handleNavClick } = useSmoothScroll();
 
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
-    { href: "#practice-areas", label: "Practice Areas", dropdown: true },
+    { href: "#practice-areas", label: "Practice Areas" },
     { href: "#testimonials", label: "Testimonials" },
     { href: "#blog", label: "Blog" },
     { href: "#contact", label: "Contact" },
@@ -57,150 +27,95 @@ const Header = () => {
   }, []);
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-all ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-md shadow-lg"
-          : "bg-background/95 backdrop-blur"
-      }`}
-    >
-      <div className="container flex h-16 items-center justify-between px-4 md:px-6">
-        {/* Logo */}
-        <Logo />
+    <>
+      {/* Top Bar */}
+      <div className="bg-primary text-white py-2 px-4 hidden md:block">
+        <div className="container flex justify-between items-center text-sm">
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-2">
+              <Phone className="w-4 h-4" />
+              <span>1-800-916-2459</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Mail className="w-4 h-4" />
+              <span>sales@panvatech.com</span>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <MapPin className="w-4 h-4" />
+            <span>14269 Danielson St, Suite 400, Poway, CA 92064</span>
+          </div>
+        </div>
+      </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8 relative">
-          {navLinks.map((link) =>
-            link.dropdown ? (
-              <div
-                key={link.href}
-                className="relative group"
-                onMouseEnter={() => setIsPracticeOpen(true)}
-                onMouseLeave={() => setIsPracticeOpen(false)}
-              >
-                <button className="text-sm font-medium text-foreground hover:text-primary transition-colors">
-                  {link.label}
-                </button>
+      {/* Main Header */}
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 backdrop-blur-lg shadow-xl border-b border-border/50"
+            : "bg-white/90 backdrop-blur-md"
+        }`}
+      >
+        <div className="container flex h-20 items-center justify-between px-4 md:px-6">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Logo />
+          </div>
 
-                {/* Dropdown */}
-                <AnimatePresence>
-                  {isPracticeOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 15 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 15 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
-                      className="absolute left-0 mt-5 w-[700px] bg-white/90 backdrop-blur-lg shadow-2xl rounded-2xl p-6 grid grid-cols-2 gap-6 z-50"
-                    >
-                      {practiceAreas.map((area, idx) => (
-                        <a
-                          key={idx}
-                          href="#practice-areas"
-                          className="flex items-start space-x-4 p-4 rounded-xl transition-all transform hover:scale-[1.02] hover:shadow-md hover:bg-muted/40 cursor-pointer"
-                          onClick={(e) => handleNavClick(e, "practice-areas")}
-                        >
-                          <div
-                            className={`flex items-center justify-center w-12 h-12 rounded-full ${area.color}`}
-                          >
-                            <area.icon className="w-6 h-6" />
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-foreground">
-                              {area.title}
-                            </h4>
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {area.description}
-                            </p>
-                          </div>
-                        </a>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ) : (
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="relative text-sm font-medium text-foreground hover:text-primary transition-colors group"
+                className="relative text-base font-medium text-foreground hover:text-primary transition-colors duration-300 group py-2"
                 onClick={(e) => handleNavClick(e, link.href.replace("#", ""))}
               >
                 {link.label}
-                <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-primary transition-all group-hover:w-full" />
+                <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-accent transition-all duration-300 group-hover:w-full" />
               </a>
-            )
-          )}
-        </nav>
+            ))}
+          </nav>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center space-x-4">
-          <a
-            href="https://stageadmin.ringremind.com/Onboarding"
-            target="_blank"
-            rel="noopener noreferrer"
+          {/* CTA Button */}
+          <div className="hidden md:flex items-center space-x-4">
+            <a
+              href="https://stageadmin.ringremind.com/Onboarding"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="bg-accent hover:bg-accent-light text-accent-foreground font-semibold rounded-full shadow-lg hover:shadow-accent/25 px-6 py-2 transform hover:scale-105 transition-all duration-300">
+                Free Consultation
+              </Button>
+            </a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
-            <Button className="bg-accent hover:bg-accent-light text-accent-foreground font-semibold rounded-full shadow-md px-6">
-              <Rocket className="w-4 h-4 mr-2" />
-              Get Started Free
-            </Button>
-          </a>
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden border-t bg-background"
-          >
-            <nav className="container px-4 py-6 space-y-6">
-              {navLinks.map((link) =>
-                link.dropdown ? (
-                  <div key={link.href} className="space-y-3">
-                    <span className="block text-sm font-semibold text-foreground">
-                      {link.label}
-                    </span>
-                    <div className="grid grid-cols-1 gap-4">
-                      {practiceAreas.map((area, idx) => (
-                        <a
-                          key={idx}
-                          href="#practice-areas"
-                          className="flex items-center space-x-3 p-3 rounded-xl hover:bg-muted/40 transition-colors"
-                          onClick={(e) => {
-                            handleNavClick(e, "practice-areas");
-                            setIsMenuOpen(false);
-                          }}
-                        >
-                          <div
-                            className={`flex items-center justify-center w-10 h-10 rounded-full ${area.color}`}
-                          >
-                            <area.icon className="w-5 h-5" />
-                          </div>
-                          <span className="text-sm font-medium">
-                            {area.title}
-                          </span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="lg:hidden border-t bg-white/95 backdrop-blur-lg"
+            >
+              <nav className="container px-4 py-6 space-y-4">
+                {navLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
-                    className="block text-sm font-medium text-foreground hover:text-primary transition-colors"
+                    className="block text-lg font-medium text-foreground hover:text-primary transition-colors py-2"
                     onClick={(e) => {
                       handleNavClick(e, link.href.replace("#", ""));
                       setIsMenuOpen(false);
@@ -208,24 +123,36 @@ const Header = () => {
                   >
                     {link.label}
                   </a>
-                )
-              )}
+                ))}
 
-              <a
-                href="https://stageadmin.ringremind.com/Onboarding"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button className="w-full mt-4 bg-accent hover:bg-accent-light text-accent-foreground font-semibold rounded-full shadow-md">
-                  <Rocket className="w-4 h-4 mr-2" />
-                  Get Started Free
-                </Button>
-              </a>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+                <div className="pt-4 border-t border-border">
+                  <div className="space-y-3 text-sm text-muted-foreground mb-4">
+                    <div className="flex items-center space-x-3">
+                      <Phone className="w-4 h-4" />
+                      <span>1-800-916-2459</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Mail className="w-4 h-4" />
+                      <span>sales@panvatech.com</span>
+                    </div>
+                  </div>
+                  
+                  <a
+                    href="https://stageadmin.ringremind.com/Onboarding"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button className="w-full bg-accent hover:bg-accent-light text-accent-foreground font-semibold rounded-full shadow-lg">
+                      Free Consultation
+                    </Button>
+                  </a>
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
   );
 };
 
