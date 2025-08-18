@@ -51,32 +51,46 @@ const FAQPage = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
         title="Frequently Asked Questions - Legal FAQ | RingRemind"
         description="Get answers to common questions about our legal services, fees, consultation process, and what to expect when working with RingRemind Legal."
         url="https://ringremind.com/faq"
       />
       <SkipNavigation />
-      <div className="min-h-screen">
+      <div className="min-h-screen flex flex-col">
         <Header />
-        <main id="main-content" role="main">
+
+        <main id="main-content" role="main" className="flex-grow">
           {/* Hero Section */}
           <section className="py-20 bg-gradient-to-br from-primary via-primary-dark to-primary-darker text-white">
-            <div className="container px-4">
-              <div className="max-w-4xl mx-auto text-center">
-                <h1 className="text-4xl md:text-6xl font-bold mb-6" data-aos="fade-up">
-                  Frequently Asked Questions
-                </h1>
-                <p className="text-xl md:text-2xl text-white/90 mb-8" data-aos="fade-up" data-aos-delay="200">
-                  Find answers to common questions about our legal services
-                </p>
-              </div>
+            <div className="container mx-auto px-4 text-center">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                Frequently Asked Questions
+              </h1>
+              <p className="text-xl md:text-2xl text-white/90 mb-8">
+                Find answers to common questions about our legal services
+              </p>
             </div>
           </section>
 
-          {/* FAQ Component */}
-          <FAQ items={faqItems} />
+          {/* FAQ Section */}
+          <section className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="space-y-4">
+                {faqItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-shadow duration-300"
+                  >
+                    <h3 className="text-lg font-semibold text-primary mb-2">{item.question}</h3>
+                    <p className="text-gray-700 leading-relaxed">{item.answer}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
         </main>
+
         <Footer />
       </div>
     </>
