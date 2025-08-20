@@ -1,17 +1,15 @@
 
 import React from 'react'
-import { HeroSection } from '../components/sections/HeroSection'
-import { AboutSection } from '../components/sections/AboutSection'
-import { ServicesSection } from '../components/sections/ServicesSection'
-import { ContactSection } from '../components/sections/ContactSection'
+import { Hero } from '../components/Hero'
+import { About } from '../components/About'
+import { PracticeAreas } from '../components/PracticeAreas'
 
-export const Home: React.FC = () => {
+const Home: React.FC = () => {
   return (
-    <div className="min-h-screen">
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <ContactSection />
+    <div>
+      <Hero />
+      <About />
+      <PracticeAreas />
     </div>
   )
 }
