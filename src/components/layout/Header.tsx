@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { IoMenu, IoClose } from 'react-icons/io5'
 import { FaWhatsapp } from 'react-icons/fa'
-import healthCoderLogo from '../../assets/images/healthcoder_logo_final.png'
 import '../../assets/css/navmenu.css'
 
 export const Header: React.FC = () => {
@@ -36,7 +35,9 @@ export const Header: React.FC = () => {
         <div className="container">
           <div className="header__main">
             <Link to="/" className="logo" onClick={closeMenu}>
-              <img src={healthCoderLogo} alt="Health Coder Logo" />
+              <div className="text-2xl font-bold text-blue-600">
+                Care<span className="text-slate-900">Legal</span>
+              </div>
             </Link>
 
             <nav className={`main-menu ${isScrolled ? '' : 'main-menu-light'} hidden lg:block`}>
