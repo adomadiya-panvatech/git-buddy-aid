@@ -23,10 +23,11 @@ export const Header: React.FC = () => {
   const closeMenu = () => setIsMenuOpen(false)
 
   const navItems = [
-    { name: 'Solutions', path: '/solutions' },
-    { name: 'Products', path: '/products' },
+    { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Services', path: '/services' },
+    { name: 'Solutions', path: '/solutions' },
+    { name: 'Products', path: '/products' },
     { name: 'Contact', path: '/contact' }
   ]
 
